@@ -1,6 +1,7 @@
 // ignore_for_file: unnecessary_cast
 
 import 'dart:math' as math;
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../extended_nested_scroll_view.dart';
+
 part 'extended_nested_scroll_view_part.dart';
 
 // ignore_for_file: unnecessary_null_comparison, always_put_control_body_on_new_line
@@ -1604,7 +1606,12 @@ class _NestedScrollPosition extends ScrollPosition
           context.vsync,
         );
       case _NestedBallisticScrollActivityMode.independent:
-        return BallisticScrollActivity(this, simulation, context.vsync);
+        return BallisticScrollActivity(
+          this,
+          simulation,
+          context.vsync,
+          true,
+        );
     }
   }
 
@@ -1676,7 +1683,12 @@ class _NestedInnerBallisticScrollActivity extends BallisticScrollActivity {
     _NestedScrollPosition position,
     Simulation simulation,
     TickerProvider vsync,
-  ) : super(position, simulation, vsync);
+  ) : super(
+          position,
+          simulation,
+          vsync,
+          true,
+        );
 
   final _NestedScrollCoordinator coordinator;
 
@@ -1714,7 +1726,12 @@ class _NestedOuterBallisticScrollActivity extends BallisticScrollActivity {
     TickerProvider vsync,
   )   : assert(metrics.minRange != metrics.maxRange),
         assert(metrics.maxRange > metrics.minRange),
-        super(position, simulation, vsync);
+        super(
+          position,
+          simulation,
+          vsync,
+          true,
+        );
 
   final _NestedScrollCoordinator coordinator;
   final _NestedScrollMetrics metrics;
